@@ -40,10 +40,12 @@ const CustomButton = styled(ButtonUnstyled)`
 
 type ButtonProps = {
   label?: string;
+  disabled?: boolean;
+  type?: string;
 };
 
-const Button: React.FC<ButtonProps> = ({ label }) => {
-  return <CustomButton>{label}</CustomButton>;
+const Button: React.FC<ButtonProps> = ({ label, ...rest }) => {
+  return <CustomButton {...rest}>{label}</CustomButton>;
 };
 
 export default Button;

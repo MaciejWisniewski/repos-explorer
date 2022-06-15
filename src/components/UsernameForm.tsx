@@ -1,21 +1,41 @@
 import React from 'react';
 import Button from './common/Button';
 import Input from './common/Input';
-import { styled } from '@mui/system';
-import { FormControlUnstyled } from '@mui/base';
+import { makeStyles } from '@mui/styles';
+import { useFormik } from 'formik';
 
-const Root = styled('div')`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-`;
+const useStyles = makeStyles({
+  form: { width: '100%' },
+});
 
 export const UsernameForm: React.FC = () => {
+  const classes = useStyles();
+  const formik = useFormik({
+    initialValues: {
+      username: '',
+    },
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+
   return (
-    <FormControlUnstyled components={{ Root: Root }}>
-      <Input placeholder="Enter username" autoFocus />
-      <Button label="Search" />
-    </FormControlUnstyled>
+    <>
+      <form className={classes.form} onSubmit={formik.handleSubmit}>
+        <Input
+          placeholder="Enter username"
+          autoFocus
+          id="username"
+          name="username"
+          value={formik.values.username}
+          onChange={formik.handleChange}
+        />
+        <Button
+          label="Search"
+          type="submit"
+          disabled={formik.values.username.length < 3}
+        />
+      </form>
+    </>
   );
 };

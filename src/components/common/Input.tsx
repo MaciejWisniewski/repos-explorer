@@ -1,8 +1,5 @@
 import * as React from 'react';
-import InputUnstyled, {
-  InputUnstyledProps,
-  inputUnstyledClasses,
-} from '@mui/base/InputUnstyled';
+import InputUnstyled, { InputUnstyledProps } from '@mui/base/InputUnstyled';
 import { styled } from '@mui/system';
 import { blue, grey } from '../../styles/colors';
 
@@ -46,10 +43,14 @@ const CustomInput = React.forwardRef(function CustomInput(
 type InputProps = {
   placeholder?: string;
   autoFocus?: boolean;
+  id: string;
+  name: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<any>) => void;
 };
 
-const Input: React.FC<InputProps> = ({ placeholder, autoFocus }) => {
-  return <CustomInput placeholder={placeholder} autoFocus={autoFocus} />;
+const Input: React.FC<InputProps> = (props) => {
+  return <CustomInput {...props} />;
 };
 
 export default Input;
