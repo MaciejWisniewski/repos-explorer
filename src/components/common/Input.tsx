@@ -1,28 +1,34 @@
 import * as React from 'react';
-import InputUnstyled, { InputUnstyledProps } from '@mui/base/InputUnstyled';
+import InputUnstyled, {
+  InputUnstyledProps,
+  inputUnstyledClasses,
+} from '@mui/base/InputUnstyled';
 import { styled } from '@mui/system';
 import { blue, grey } from '../../styles/colors';
 
 const StyledInputElement = styled('input')(`
-  width: 320px;
-  font-size: 0.875rem;
-  font-family: IBM Plex Sans, sans-serif;
-  font-weight: 400;
-  line-height: 1.5;
-  color: ${grey[400]});
-  background: ${grey[50]};
-  border: 1px solid ${grey[200]};
-  padding: 12px 12px;
+font-family: IBM Plex Sans, sans-serif;
+font-size: 0.875rem;
+font-weight: 400;
+line-height: 1.5;
+color: ${grey[5]};
+background: ${grey[1]};
+border: 1px solid ${grey[3]};
+padding: 12px 12px;
+width: 100%;
 
   &:hover {
-    background: ${grey[100]}};
-    border-color: ${grey[300]};
+    background: ${grey[2]}};
+    border-color: ${grey[4]};
   }
 
   &:focus {
-    outline: 2px solid ${blue[100]};
+    outline: 2px solid ${blue[2]};
   }
 `);
+
+const Root = styled('div')(`
+width: 100%;`);
 
 const CustomInput = React.forwardRef(function CustomInput(
   props: InputUnstyledProps,
@@ -30,7 +36,7 @@ const CustomInput = React.forwardRef(function CustomInput(
 ) {
   return (
     <InputUnstyled
-      components={{ Input: StyledInputElement }}
+      components={{ Input: StyledInputElement, Root }}
       {...props}
       ref={ref}
     />
@@ -39,10 +45,11 @@ const CustomInput = React.forwardRef(function CustomInput(
 
 type InputProps = {
   placeholder?: string;
+  autoFocus?: boolean;
 };
 
-const Input: React.FC<InputProps> = ({ placeholder }) => {
-  return <CustomInput placeholder={placeholder} />;
+const Input: React.FC<InputProps> = ({ placeholder, autoFocus }) => {
+  return <CustomInput placeholder={placeholder} autoFocus={autoFocus} />;
 };
 
 export default Input;

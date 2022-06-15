@@ -1,10 +1,20 @@
 import React from 'react';
-import Input from './common/Input';
+import { UsernameForm } from './UsernameForm';
+import { styled } from '@mui/system';
+
+const Root = styled('div')`
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  align-items: center;
+  width: 100%;
+  max-width: 30rem;
+`;
 
 export const Explorer: React.FC = () => {
   return (
-    <div>
-      <Input placeholder="Enter username" />
-    </div>
+    <Root>
+      <UsernameForm />
+    </Root>
   );
 };
