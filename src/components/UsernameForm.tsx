@@ -3,6 +3,10 @@ import Button from './common/Button';
 import Input from './common/Input';
 import { makeStyles } from '@mui/styles';
 import { useFormik } from 'formik';
+import { getUsersMatchedByLogin } from '../services/userService';
+import { useUserStore } from '../stores/userStore';
+import { User } from '../types/user';
+import { toJS } from 'mobx';
 
 const useStyles = makeStyles({
   form: { width: '100%' },
@@ -10,12 +14,16 @@ const useStyles = makeStyles({
 
 export const UsernameForm: React.FC = () => {
   const classes = useStyles();
+  const userStore = useUserStore();
   const formik = useFormik({
     initialValues: {
       username: '',
     },
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      const users: User[] = await getUsersMatchedByLogin(5, values.username);
+      userStore.setUsers(users);
+
+      console.log(toJS(userStore.users));
     },
   });
 
