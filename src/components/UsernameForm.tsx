@@ -6,7 +6,6 @@ import { useFormik } from 'formik';
 import { getUsersMatchedByLogin } from '../services/userService';
 import { useUserStore } from '../stores/userStore';
 import { User } from '../types/user';
-import { toJS } from 'mobx';
 
 const useStyles = makeStyles({
   form: { width: '100%' },
@@ -22,8 +21,7 @@ export const UsernameForm: React.FC = () => {
     onSubmit: async (values) => {
       const users: User[] = await getUsersMatchedByLogin(5, values.username);
       userStore.setUsers(users);
-
-      console.log(toJS(userStore.users));
+      userStore.setUsername(values.username);
     },
   });
 

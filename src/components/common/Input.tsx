@@ -4,15 +4,15 @@ import { styled } from '@mui/system';
 import { blue, grey } from '../../styles/colors';
 
 const StyledInputElement = styled('input')(`
-font-family: IBM Plex Sans, sans-serif;
-font-size: 0.875rem;
-font-weight: 400;
-line-height: 1.5;
-color: ${grey[5]};
-background: ${grey[1]};
-border: 1px solid ${grey[3]};
-padding: 12px 12px;
-width: 100%;
+  font-family: IBM Plex Sans, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: ${grey[5]};
+  background: ${grey[1]};
+  border: 1px solid ${grey[3]};
+  padding: 12px 12px;
+  width: 100%;
 
   &:hover {
     background: ${grey[2]}};
