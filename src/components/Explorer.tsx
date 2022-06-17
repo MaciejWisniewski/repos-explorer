@@ -4,7 +4,7 @@ import { UsernameForm } from './UsernameForm';
 import { styled } from '@mui/system';
 import { useUserStore } from '../stores/userStore';
 import { Alert } from '@mui/material';
-import { User } from './User';
+import { UserTab } from './UserTab';
 import { SearchResultTitle } from './SearchResultTitle';
 
 const Root = styled('div')`
@@ -28,7 +28,7 @@ export const Explorer: React.FC = observer(() => {
 
       {userStore.users.length > 0 ? (
         userStore.users.map((user) => (
-          <User key={user.id} userId={user.id} username={user.login} />
+          <UserTab key={user.id} userId={user.id} username={user.login} />
         ))
       ) : (
         <>

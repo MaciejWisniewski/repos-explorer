@@ -20,31 +20,33 @@ const Tab = styled('div')`
   justify-content: space-between;
 `;
 
-type UserProps = {
+type UserTabProps = {
   userId: number;
   username: string;
 };
 
-export const User: React.FC<UserProps> = observer(({ userId, username }) => {
-  const [open, setOpen] = useState<boolean>(false);
+export const UserTab: React.FC<UserTabProps> = observer(
+  ({ userId, username }) => {
+    const [open, setOpen] = useState<boolean>(false);
 
-  const userStore = useUserStore();
+    const userStore = useUserStore();
 
-  const handleClick = async () => {
-    if (!userStore.hasRepositories(userId)) {
-      const repos = await getRepositoriesByUsername(username);
-      userStore.assignRepositories(userId, repos);
-    }
+    const handleClick = async () => {
+      if (!userStore.hasRepositories(userId)) {
+        const repos = await getRepositoriesByUsername(username);
+        userStore.assignRepositories(userId, repos);
+      }
 
-    setOpen(!open);
-  };
+      setOpen(!open);
+    };
 
-  return (
-    <Root>
-      <Tab onClick={handleClick}>
-        <div>{username}</div>
-        <KeyboardArrowDownIcon />
-      </Tab>
-    </Root>
-  );
-});
+    return (
+      <Root>
+        <Tab onClick={handleClick}>
+          <div>{username}</div>
+          <KeyboardArrowDownIcon />
+        </Tab>
+      </Root>
+    );
+  }
+);
