@@ -32,8 +32,13 @@ class UserStore {
     this.users = [...this.users];
   }
 
-  hasRepositories(userId: number): Boolean {
+  assignedRepositories(userId: number): Boolean {
     return this.users.find((u) => u.id === userId)?.repositories !== undefined;
+  }
+
+  hasRepositories(userId: number): Boolean {
+    const repos = this.users.find((u) => u.id === userId)!.repositories;
+    return repos !== undefined && repos.length > 0;
   }
 
   getRepositories(userId: number): Repository[] | undefined {

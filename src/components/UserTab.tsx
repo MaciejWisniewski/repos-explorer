@@ -5,6 +5,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { getRepositoriesByUsername } from '../services/repositoryService';
 import { useUserStore } from '../stores/userStore';
 import { observer } from 'mobx-react-lite';
+import RepositoriesList from './RepositoriesList';
 
 const Root = styled('div')`
   width: 100%;
@@ -32,7 +33,7 @@ export const UserTab: React.FC<UserTabProps> = observer(
     const userStore = useUserStore();
 
     const handleClick = async () => {
-      if (!userStore.hasRepositories(userId)) {
+      if (!userStore.assignedRepositories(userId)) {
         const repos = await getRepositoriesByUsername(username);
         userStore.assignRepositories(userId, repos);
       }
@@ -46,6 +47,7 @@ export const UserTab: React.FC<UserTabProps> = observer(
           <div>{username}</div>
           <KeyboardArrowDownIcon />
         </Tab>
+        {open && <RepositoriesList userId={userId} />}
       </Root>
     );
   }
