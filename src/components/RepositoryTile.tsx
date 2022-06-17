@@ -14,7 +14,13 @@ const Headline = styled('div')`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: flex-start;
   font-weight: bold;
+`;
+
+const Name = styled('div')`
+  word-break: break-all;
+  text-align: left;
 `;
 
 const Description = styled('div')`
@@ -36,7 +42,7 @@ export const RepositoryTile: React.FC<RepositoryTileProps> = ({
   return (
     <Root>
       <Headline>
-        <div>{name}</div>
+        <Name>{name}</Name>
         <Stack direction="row" alignItems="center">
           {stargazersCount}
           <StarIcon sx={{ marginLeft: '.3rem', fontSize: '1.2rem' }} />

@@ -11,17 +11,26 @@ const useStyles = makeStyles({
   form: { width: '100%' },
 });
 
-export const UsernameForm: React.FC = () => {
+type UsernameFormProps = {
+  setLoading: (loading: boolean) => void;
+};
+
+export const UsernameForm: React.FC<UsernameFormProps> = ({ setLoading }) => {
   const classes = useStyles();
   const userStore = useUserStore();
+
   const formik = useFormik({
     initialValues: {
       username: '',
     },
     onSubmit: async (values) => {
+      setLoading(true);
+
       const users: User[] = await getUsersMatchedByLogin(5, values.username);
       userStore.setUsers(users);
       userStore.setUsername(values.username);
+
+      setLoading(false);
     },
   });
 

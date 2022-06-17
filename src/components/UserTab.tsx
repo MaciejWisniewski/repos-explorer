@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { styled } from '@mui/system';
 import { grey } from '../styles/colors';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { getRepositoriesByUsername } from '../services/repositoryService';
 import { useUserStore } from '../stores/userStore';
 import { observer } from 'mobx-react-lite';
 import RepositoriesList from './RepositoriesList';
+import LoadingIcon from './common/LoadingIcon';
 
 const Root = styled('div')`
   width: 100%;
@@ -29,25 +31,34 @@ type UserTabProps = {
 export const UserTab: React.FC<UserTabProps> = observer(
   ({ userId, username }) => {
     const [open, setOpen] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const userStore = useUserStore();
 
     const handleClick = async () => {
+      setOpen(!open);
+
       if (!userStore.assignedRepositories(userId)) {
+        setLoading(true);
+
         const repos = await getRepositoriesByUsername(username);
         userStore.assignRepositories(userId, repos);
-      }
 
-      setOpen(!open);
+        setLoading(false);
+      }
     };
 
     return (
       <Root>
         <Tab onClick={handleClick}>
           <div>{username}</div>
-          <KeyboardArrowDownIcon />
+          {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
         </Tab>
-        {open && <RepositoriesList userId={userId} />}
+        {loading ? (
+          <LoadingIcon />
+        ) : (
+          <>{open && <RepositoriesList userId={userId} />}</>
+        )}
       </Root>
     );
   }
