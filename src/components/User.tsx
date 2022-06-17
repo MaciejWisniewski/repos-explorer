@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from '@mui/system';
 import { grey } from '../styles/colors';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { getRepositoriesByUsername } from '../services/repositoryService';
+import { useUserStore } from '../stores/userStore';
+import { observer } from 'mobx-react-lite';
 
 const Root = styled('div')`
+  width: 100%;
+`;
+
+const Tab = styled('div')`
   padding: 0.5rem;
   width: 100%;
   background-color: ${grey[1]};
@@ -14,14 +21,30 @@ const Root = styled('div')`
 `;
 
 type UserProps = {
+  userId: number;
   username: string;
 };
 
-export const User: React.FC<UserProps> = ({ username }) => {
+export const User: React.FC<UserProps> = observer(({ userId, username }) => {
+  const [open, setOpen] = useState<boolean>(false);
+
+  const userStore = useUserStore();
+
+  const handleClick = async () => {
+    if (!userStore.hasRepositories(userId)) {
+      const repos = await getRepositoriesByUsername(username);
+      userStore.assignRepositories(userId, repos);
+    }
+
+    setOpen(!open);
+  };
+
   return (
     <Root>
-      <div>{username}</div>
-      <KeyboardArrowDownIcon />
+      <Tab onClick={handleClick}>
+        <div>{username}</div>
+        <KeyboardArrowDownIcon />
+      </Tab>
     </Root>
   );
-};
+});

@@ -18,6 +18,7 @@ const Root = styled('div')`
 
 export const Explorer: React.FC = observer(() => {
   const userStore = useUserStore();
+
   return (
     <Root>
       <UsernameForm />
@@ -27,7 +28,7 @@ export const Explorer: React.FC = observer(() => {
 
       {userStore.users.length > 0 ? (
         userStore.users.map((user) => (
-          <User key={user.id} username={user.login} />
+          <User key={user.id} userId={user.id} username={user.login} />
         ))
       ) : (
         <>
