@@ -16,5 +16,9 @@ type SearchResultTitleProps = {
 export const SearchResultTitle: React.FC<SearchResultTitleProps> = ({
   username,
 }) => {
-  return <Root>Showing users for "{username}"</Root>;
+  return (
+    <Root data-testid="search-result-title">
+      Showing users for "{username}"
+    </Root>
+  );
 };

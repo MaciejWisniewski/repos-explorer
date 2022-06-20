@@ -38,7 +38,11 @@ export const Explorer: React.FC = observer(() => {
           ) : (
             <>
               {userStore.username && (
-                <Alert severity="info" sx={{ width: '100%' }}>
+                <Alert
+                  severity="info"
+                  sx={{ width: '100%' }}
+                  data-testid="no-users-alert"
+                >
                   No users
                 </Alert>
               )}
